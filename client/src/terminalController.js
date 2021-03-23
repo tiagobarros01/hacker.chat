@@ -1,11 +1,3 @@
-/* eslint-disable import/no-named-as-default-member */
-/* eslint-disable import/no-named-as-default */
-/* eslint-disable import/extensions */
-/* eslint-disable no-empty-function */
-/* eslint-disable no-useless-constructor */
-/* eslint-disable no-unused-vars */
-/* eslint-disable class-methods-use-this */
-
 import ComponentsBuilder from "./components.js";
 import constants from "./constants.js";
 
