@@ -5,10 +5,6 @@ HACKER.CHAT
  
 <p align="center">An chat app in real time!</p>
 
-<p align="center">
-  <img src="public/moveit.gif"/>
-</p>
-
 ## Status: 
  <h4> [incompleted]</h4>
 

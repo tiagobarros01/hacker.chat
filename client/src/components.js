@@ -6,7 +6,7 @@ export default class ComponentsBuilder {
   #input;
   #chat;
   #status;
-  #activityLog
+  #activityLog;
 
   constructor() {}
 
@@ -29,7 +29,7 @@ export default class ComponentsBuilder {
       title,
     });
 
-    this.#screen.key(['escape', 'q', 'C-c'], () => process.exit(0))
+    this.#screen.key(["escape", "q", "C-c"], () => process.exit(0));
     return this;
   }
 
@@ -59,53 +59,50 @@ export default class ComponentsBuilder {
       },
     });
 
-    input.key('enter', onEnterPressed);
-    this.#input = input
+    input.key("enter", onEnterPressed);
+    this.#input = input;
 
-    return this
-
+    return this;
   }
 
   setChatComponent() {
     this.#chat = blessed.list({
       ...this.#baseComponent(),
       parent: this.#layout,
-      align: 'left',
-      width: '50%',
-      height: '90%',
-      items: ['{bold}Messenger{/}']
-    })
+      align: "left",
+      width: "50%",
+      height: "90%",
+      items: ["{bold}Messenger{/}"],
+    });
 
-    return this
+    return this;
   }
 
   setStatusComponent() {
     this.#status = blessed.list({
       ...this.#baseComponent(),
       parent: this.#layout,
-      width: '25%',
-      height: '90%',
-      items: ['{bold}Users on Room{/}']
+      width: "25%",
+      height: "90%",
+      items: ["{bold}Users on Room{/}"],
+    });
 
-    })
-
-    return this
+    return this;
   }
 
   setActivityLogComponent() {
     this.#activityLog = blessed.list({
       ...this.#baseComponent(),
       parent: this.#layout,
-      width: '25%',
-      height: '90%',
+      width: "25%",
+      height: "90%",
       style: {
-        fg: 'yellow'
+        fg: "yellow",
       },
-      items: ['{bold}Activity Log{/}']
+      items: ["{bold}Activity Log{/}"],
+    });
 
-    })
-
-    return this
+    return this;
   }
 
   build() {
@@ -114,9 +111,9 @@ export default class ComponentsBuilder {
       input: this.#input,
       chat: this.#chat,
       activityLog: this.#activityLog,
-      status: this.#status
-    }
+      status: this.#status,
+    };
 
-    return components
+    return components;
   }
 }

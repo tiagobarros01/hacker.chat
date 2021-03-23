@@ -8,7 +8,7 @@ const {
 } = constants.events.app;
 
 export default class TerminalController {
-  #usersCollors = new Map();
+  #userscolors = new Map();
 
   constructor() {}
 
@@ -17,14 +17,14 @@ export default class TerminalController {
     return `#${hex}-fg`;
   }
 
-  #getUserCollor(userName) {
-    if (this.#usersCollors.has(userName))
-      return this.#usersCollors.get(userName);
+  #getUsercolor(userName) {
+    if (this.#userscolors.has(userName))
+      return this.#userscolors.get(userName);
 
-    const collor = this.#randomColor();
-    this.#usersCollors.set(userName, collor);
+    const color = this.#randomColor();
+    this.#userscolors.set(userName, color);
 
-    return collor;
+    return color;
   }
 
   #onInputReceived(eventEmitter) {
@@ -38,9 +38,9 @@ export default class TerminalController {
   #onMessageReceived({ screen, chat }) {
     return (msg) => {
       const { userName, message } = msg;
-      const collor = this.#getUserCollor(userName);
+      const color = this.#getUsercolor(userName);
 
-      chat.addItem(`{${collor}}{bold}${userName}{/}: ${message}`);
+      chat.addItem(`{${color}}{bold}${userName}{/}: ${message}`);
       screen.render();
     };
   }
@@ -48,8 +48,8 @@ export default class TerminalController {
   #onLogChanged({ screen, activityLog }) {
     return (msg) => {
       const [userName] = msg;
-      const collor = this.#getUserCollor(userName);
-      activityLog.addItem(`{${collor}}{bold}${msg.toString()}{/}`);
+      const color = this.#getUsercolor(userName);
+      activityLog.addItem(`{${color}}{bold}${msg.toString()}{/}`);
 
       screen.render();
     };
@@ -62,8 +62,8 @@ export default class TerminalController {
       status.addItem(content);
 
       users.forEach((userName) => {
-        const collor = this.#getUserCollor(userName);
-        status.addItem(`{${collor}}{bold}${userName}{/}`);
+        const color = this.#getUsercolor(userName);
+        status.addItem(`{${color}}{bold}${userName}{/}`);
       });
 
       screen.render();
