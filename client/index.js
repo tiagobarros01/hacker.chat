@@ -1,15 +1,28 @@
 import Events from 'events';
 import CliConfig from './src/cliConfig.js';
-import SocketCLient from './src/socket.js';
+import SocketClient from './src/socket.js';
 import TerminalController from './src/terminalController.js';
+import EventManager from './src/eventManager.js'
 
 const [nodePath, filePath, ...commands] = process.argv;
 const config = CliConfig.parseArguments(commands);
 const componentEmitter = new Events();
 
-const socketCLient = new SocketCLient(config)
-await socketCLient.initialize()
+const socketClient = new SocketClient(config)
+await socketClient.initialize()
 
-// const controller = new TerminalController();
+const eventManager = new EventManager({ componentEmitter, socketClient })
+const events = eventManager.getEvents()
+socketClient.attachEvents(events)
 
-// await controller.initializeTable(componentEmitter)
+const { room, username } = config
+
+const data = {
+  roomId: room,
+  userName: username
+}
+
+eventManager.joinRoomAndWaitForMessages(data)
+
+const controller = new TerminalController();
+await controller.initializeTable(componentEmitter)

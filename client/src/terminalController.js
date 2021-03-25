@@ -5,6 +5,7 @@ const {
   MESSAGE_RECEIVED,
   ACTIVITYLOG_UPDATED,
   STATUS_UPDATED,
+  MESSAGE_SENT
 } = constants.events.app;
 
 export default class TerminalController {
@@ -30,7 +31,7 @@ export default class TerminalController {
   #onInputReceived(eventEmitter) {
     return function () {
       const message = this.getValue();
-      console.log(message);
+      eventEmitter.emit(MESSAGE_SENT, message)
       this.clearValue();
     };
   }
@@ -100,9 +101,5 @@ export default class TerminalController {
       "suave",
       "tlgd",
     ];
-
-    for (users of users) {
-      eventEmitter.emit(ACTIVITYLOG_UPDATED, users);
-    }
   }
 }
