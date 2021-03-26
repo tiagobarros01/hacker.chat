@@ -92,14 +92,5 @@ export default class TerminalController {
     components.input.focus();
     components.screen.render();
 
-    let users = [
-      "Tiago Barros",
-      "lucao",
-      "sla",
-      "alguem",
-      "leticia",
-      "suave",
-      "tlgd",
-    ];
   }
 }

@@ -1,7 +1,7 @@
 import constants from "./constants.js";
 
 const { JOIN_ROOM, MESSAGE } = constants.events.socket;
-const { MESSAGE_SENT, STATUS_UPDATED, ACTIVITYLOG_UPDATED } = constants.events.app;
+const { MESSAGE_SENT, STATUS_UPDATED, ACTIVITYLOG_UPDATED, MESSAGE_RECEIVED } = constants.events.app;
 
 export default class EventManager {
   #allUsers = new Map();
@@ -27,11 +27,27 @@ export default class EventManager {
     this.#updateUsersComponent();
   }
 
+  disconnectUser(user) {
+    const { userName, id } = user
+    this.#allUsers.delete(id)
+
+    this.#updateActivityLogComponent(`${userName} left!`)
+    this.#updateUsersComponent()
+
+  }
+
   newUserConnected(message) {
     const user = message
     this.#allUsers.set(user.id, user.userName)
     this.#updateUsersComponent()
     this.#updateActivityLogComponent(`${user.userName} joined!`)
+  }
+
+  message(message) {
+    this.componentEmitter.emit(
+      MESSAGE_RECEIVED,
+      message
+    );
   }
 
   #updateActivityLogComponent(message) {
